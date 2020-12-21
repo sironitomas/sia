@@ -1,8 +1,12 @@
+import logging
+
 import graphviz
 import ipdb
 import numpy as np
 import pandas as pd
 from sklearn import tree
+import json
+
 
 def get_dataframe(filename):
     return pd.read_csv(filename, dtype='category')
@@ -33,18 +37,19 @@ def analysis(content):
         for i, name in enumerate(df[column].cat.categories):
             decoder[column][name] = i
     query_list = []
-    # ipdb.set_trace()
     for column in df.columns:
         query_list.append(decoder[column][content[column]])
-    print(query_list)
+    print('received ', query_list)
     query_array = np.array(query_list)
-    print(query_array)
     prediction = clf.predict([query_array])
-    # ipdb.set_trace()
     if prediction[0] == 0:
-        return 'e'
+        print('responding e')
+        res = {'result': 'e'}
+        return json.dumps(res)
     else:
-        return 'p'
+        print('responding p')
+        res = {'result': 'p'}
+        return json.dumps(res)
 
 if __name__ == '__main__':
     test = {
