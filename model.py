@@ -40,7 +40,11 @@ def analysis(content):
     query_array = np.array(query_list)
     print(query_array)
     prediction = clf.predict([query_array])
-    return str(prediction)
+    # ipdb.set_trace()
+    if prediction[0] == 0:
+        return 'e'
+    else:
+        return 'p'
 
 if __name__ == '__main__':
     test = {

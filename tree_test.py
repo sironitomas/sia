@@ -13,12 +13,12 @@ Y = df['type'].to_numpy()
 del df['type']
 X = df.to_numpy()
 
-clf = tree.DecisionTreeClassifier()
+clf = tree.DecisionTreeClassifier(max_features=int)
 clf = clf.fit(X, Y)
 
 clf.predict([X[0]])
-import ipdb
-ipdb.set_trace()
+# import ipdb
+# ipdb.set_trace()
 
 dot_data = tree.export_graphviz(
     clf, out_file=None,
